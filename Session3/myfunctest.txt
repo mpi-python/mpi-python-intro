@@ -1,0 +1,3 @@
+Hello. there is a new world. This text file is used for testing the frequentword function.
+Oh Hello. Hello.
+Best test. Hello.
