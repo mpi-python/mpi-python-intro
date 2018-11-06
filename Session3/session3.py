@@ -8,7 +8,7 @@ def fibonacci (max_num):
         elif number >= numbers[1]:
             fibonacci_numbers.append(fibonacci_numbers[number-1] + fibonacci_numbers[number-2])
             if fibonacci_numbers[-1] > max_num:
-                print(fibonacci_numbers[0:-1])
+                return fibonacci_numbers[0:-1]
                 break
 
 def duplicate_removal (input_list):
