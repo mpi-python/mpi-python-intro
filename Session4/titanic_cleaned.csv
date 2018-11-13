@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ,PassID,Survived,Class,Name,Sex,Age,SibSp,ParCh,Ticket,Fare,Embarked
+=======
+,PassengerId,Survived,Pclass,Name,Sex,Age,SibSp,ParCh,Ticket,Fare,Embarked
+>>>>>>> 77f1d10675ab62adcb6fac9bf84443c5be2863f5
 0,1,no,3,"Braund, Mr. Owen Harris",male,22.0,1,0,A/5 21171,7.25,S
 1,2,yes,1,"Cumings, Mrs. John Bradley (Florence Briggs Thayer)",female,38.0,1,0,PC 17599,71.2833,C
 2,3,yes,3,"Heikkinen, Miss. Laina",female,26.0,0,0,STON/O2. 3101282,7.925,S
