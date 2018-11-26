@@ -14,7 +14,7 @@ clock = core.Clock()
 
 # use a while loop to quit when t reaches 30 seconds
 while clock.getTime() < 30:
-    text.setText(f't = {clock.getTime():.2f}')  # the clock returns a float, so we format it nicely using an f-string
+    text.setText(f't = {clock.getTime():.2f}')  # the clock returns a float, so we format it nicely using an f-string (.2 means two decimals)
     text.draw()
     win.flip()
 
