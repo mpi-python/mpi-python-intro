@@ -1,0 +1,4 @@
+
+# Don't track content of these files
+*.DS_Store
+*.ipynb_checkpoints/
