@@ -7,10 +7,16 @@ win = visual.Window(color = 'white', fullscr = True) #Open a window with a white
 core.wait(2)  # Wait two seconds
 
 # prepare a text stimulus
-text = visual.TextStim(win, text='Welcome to my first experiment', color='Black', font = 'arial')
+text = visual.TextStim(win, text='Welcome to this experiment', color='Black', font = 'arial')
 text.draw()  # draw the stimulus to the back buffer
 win.flip()  # flip the back buffer with our stimulus to the front
-core.wait(5)  # wait for 1 second so we can look at the window with our fixation cross
+core.wait(5)  # wait
+
+image = visual.ImageStim(win, None)
+image.draw()  # draw the stimulus to the back buffer
+win.flip() 
+
+class psychopy.voicekey.OffsetVoiceKey(sec=10, file_out='', file_in='', delay=0.3, **kwargs)
 
 while True:
     keys = event.getKeys(keyList=['space', 'escape'])
@@ -48,8 +54,13 @@ while True:
     text.draw()
     win.flip()
     core.wait(8)
+  
+    image.setImage(f'{1}.png')
+    image.draw()
+    win.flip()
+    core.wait(5)
 
     win.flip()  # flip an empty back buffer onto the screen
     core.wait(1)  # wait on blank screen again
-
+    
 win.close()  # close the window
