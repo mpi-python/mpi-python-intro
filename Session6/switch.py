@@ -16,39 +16,33 @@ image = visual.ImageStim(win, None)
 image.draw()  # draw the stimulus to the back buffer
 win.flip() 
 
-class psychopy.voicekey.OffsetVoiceKey(sec=10, file_out='', file_in='', delay=0.3, **kwargs)
+#class psychopy.voicekey.OffsetVoiceKey(sec=10, file_out='', file_in='', delay=0.3, **kwargs)
 
 while True:
     keys = event.getKeys(keyList=['space', 'escape'])
     
     if 'escape' in keys:
         break
-        
-    elif 'space' in keys:
-        event.waitKeys(keyList=['space'])
-        
-##Omdat je hier dezelfde vier regels telkens herhaalt, kun je hier ook een functie voor schrijven, waarbij je alleen de tijd en de tekst zelf aanpast. Maar dit kan ook. 
-        
-                                
+                                     
     text.setText('In this experiment, you will get to see pictures. Your task is to name the pictures as quickly as possible.')
     text.draw()  # draw to back buffer again
     win.flip()
-    core.wait(8)  # wait for 8 seconds so we can look at the window with our text
+    core.wait(2)  # wait for 8 seconds so we can look at the window with our text
     
     text.setText('However, there is a catch.')
     text.draw() 
     win.flip()
-    core.wait(5)  
+    core.wait(2)  
     
     text.setText('If you see a picture on the LEFT side of the screen, name the picture in English.')
     text.draw()  
     win.flip()
-    core.wait(8)
+    core.wait(2)
 
     text.setText('If you see a picture on the RIGHT side of the screen, name the picture in Dutch.')
     text.draw()
     win.flip()
-    core.wait(8)
+    core.wait()
 
     text.setText('Before we get started, here are a few items to practice.')
     text.draw()
@@ -64,3 +58,4 @@ while True:
     core.wait(1)  # wait on blank screen again
     
 win.close()  # close the window
+core.quit()
