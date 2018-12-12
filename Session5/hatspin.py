@@ -19,6 +19,7 @@ while n < 360:
     image.setImage(f'Hat{n}.png')
     image.draw()
     win.flip()
+    core.wait(0.1)
     n += 1   
 win.close()  # close the window
 
@@ -29,6 +30,7 @@ while n < 360:
     image.setImage(f'Hat{n}.png')
     image.draw()
     win.flip()
+    core.wait(0.1)
     n += 2
 win.close()  # close the window
 
@@ -43,6 +45,7 @@ while n < 360:
     image.setImage(f'Hat{n}.png')
     image.draw()
     win.flip()
+    core.wait(0.1)
     n += 2
 win.close()  # close the window
 
@@ -50,7 +53,7 @@ win.close()  # close the window
 # X4 - Participant in control
 
 n = 0
-fast = 2
+t = 0.2
 while n < 360:
     press = event.getKeys(keyList=['escape', 'space', 'up', 'down', 'right', 'left'])
     if 'escape' in press:
@@ -58,9 +61,9 @@ while n < 360:
     elif 'space' in press:
         event.waitKeys(keyList = 'space')
     elif 'up' in press: 
-        fast += 1
+        t -= 1
     elif 'down' in press: 
-        fast -= 1
+        t += 1
     elif 'right' in press: 
         n += 1
     elif 'left' in press: 
@@ -69,6 +72,8 @@ while n < 360:
     image.setImage(f'Hat{n}.png')
     image.draw()
     win.flip()
-    n += fast
+    core.wait(t)
+    n += 1
     
 win.close()  # close the window
+
