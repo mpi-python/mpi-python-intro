@@ -19,6 +19,23 @@ from psychopy.constants import *  # things like STARTED, FINISHED
 import os  # handy system and path functions
 import sys # to get file system encoding
 
+
+#=SUBROUTINES=====================
+def present_stim(module, t):
+    module.onset = t
+    module.setAutoDraw(True)
+    
+    return module
+
+def Check_for_quit(event):
+    if event.getKeys(keyList=["escape"]):
+        core.quit()
+
+def reset_components(TrialComponents):
+    for thisComponent in TrialComponents:
+        if hasattr(thisComponent, 'status'):
+            thisComponent.status = NOT_STARTED
+    print('reset done')
 #=INITIALIZE============================
 #set up some initial variables
 
@@ -32,20 +49,20 @@ dlg = gui.DlgFromDict(dictionary=expInfo, title=expName)
 expInfo['date'] = data.getDateStr()  # add a simple timestamp
 
 
-filename = 'D:\\data\\fMRI_Social_Skeletons\\' + u'beh/%s_%s_%s' %(expInfo['participant'], expName, expInfo['date'])
+filename = 'data/%s_%s_%s' %(expInfo['participant'], expName, expInfo['date'])
 
 endExpNow = False  # flag for 'escape' or other condition => quit the exp
 
 #how many trials?
-numTrials = 2
+numTrials = 3
 
 
 #load in the stimulus video paths
-with open('D:\\data\\fMRI_Social_Skeletons\\stimuli\\social_skeletons_pilot_stimA.txt') as f:
+with open('stimuli/social_skeletons_stims.txt') as f:
     stimpaths = f.read().splitlines()
 random.shuffle(stimpaths)
 #load the Primes: single words describing each action. index+1 corresponds to the second number in the video name.
-with open('D:\\data\\fMRI_Social_Skeletons\\stimuli\\prime_text.txt') as f:
+with open('stimuli/prime_text.txt') as f:
         Prime_text = f.read().splitlines()
 
 
@@ -54,14 +71,17 @@ win = visual.Window(size=(1024, 768), fullscr=True, screen=0, allowGUI=True, all
     monitor='testMonitor', color=[-1,-1,-1], colorSpace='rgb',
     blendMode='avg', useFBO=True,
     )
-   
+ 
+#we'll need this later
+expInfo['frameRate']=win.getActualFrameRate()
+
 #
 #Now set up everything to actually run
 trialClock = core.Clock()
 globalClock = core.Clock()
 
 #------BEGIN-----------
-# Ending Text
+# Intro Text
 Begin_text = visual.TextStim(win=win, ori=0, name='Begin_text',
     text=u'Ready?',    font=u'Arial',
     pos=[0, 0], height=0.1, wrapWidth=None,
@@ -87,20 +107,24 @@ Prime = visual.TextStim(win=win, ori=0, name='Prime',
     depth=-1.0)
     
 
-
+#our main stimulus
 movie = visual.MovieStim3(win=win, name='movie',
     noAudio = True,
-    filename='C:\\Users\\James\\Documents\\MATLAB\\skeletons_whole\\2_3_skeleton.avi',
+    filename='stimuli/2_3_skeleton.avi',
     ori=0, pos=[0, 0], opacity=1,
     depth=-2.0,
     )
 
 #Text stimulus
 Response_text = visual.TextStim(win=win, ori=0, name='Response_text',
-    text=u'           \n\nTeacher\t\tNeutral\t\tStudent\n  [1]                               [0]',    font=u'Arial',
+    text=u'           \n\nTeacher\t\t\t\tNeutral\t\t\t\tStudent\n  [1]\t\t\t\t\t\t\t[2]\t\t\t\t\t\t\t[3]',    font=u'Arial',
     pos=[0, 0], height=0.1, wrapWidth=None,
     color=u'white', colorSpace='rgb', opacity=1,
     depth=-2.0)
+    
+#static period between trials
+ISI = core.StaticPeriod(win=win, screenHz=expInfo['frameRate'], name='ISI')
+
     
     
 #=====WAIT FOR START================
@@ -131,16 +155,13 @@ for Trial in range(1, numTrials):
     prime_current = Prime_text[int(B)]
     
     
-    Prime = visual.TextStim(win=win, ori=0, name='Prime',
-        text=(prime_current),   font='Arial',
-        pos=[0,0], height=0.1,wrapWidth=None,
-        color='white', colorSpace='rgb',opacity=1,
-        depth=-1.0)
-
+    Prime.text=(prime_current)
     
-    movie.filename=u'C:\\Users\\James\\Documents\\MATLAB\\skeletons_whole\\fMRI_pilot\\%s.avi'%(stims[0]),
+    movie.filename=u'stimuli/%s.avi'%(stims[0]),
 
     trialClock.reset()  # reset the trial clock
+    
+    t = 0 #reset this every time
     
     key_resp = event.BuilderKeyResponse()  # create an object of type KeyResponse
 
@@ -150,52 +171,75 @@ for Trial in range(1, numTrials):
     TrialComponents.append(movie)
     TrialComponents.append(Response_text)
     TrialComponents.append(key_resp)
-    for thisComponent in TrialComponents:
-        if hasattr(thisComponent, 'status'):
-            thisComponent.status = NOT_STARTED
+    TrialComponents.append(ISI)
+    reset_components(TrialComponents)
 
     continueRoutine = True #used to jeep the trial going until its done
-    
+    print('setup done')
 #----------start
     
     while continueRoutine == True:
-        
         t = trialClock.getTime()
+        
+        #print('begin')
+        #print(movie.status)
         #if the Prime hasn't been shown yet, draw and show it
         if t > 0 and Prime.status == NOT_STARTED:
-            Prime.draw()
-            win.flip()
-            Prime.onset = t
-            Prime.status = STARTED
+            #Prime.draw()#we cant use this method because the window has to be flipped at the end of the routine for the video
+            present_stim(Prime,t)
+            print('showing prime')
+            print(movie.status)
+            print('Prime onset: ' + str(Prime.onset))
+            print('t = ' + str(t))
             
         #after 1.5 seconds, stop showing the prime (give us a blank screen
-        if Prime.status == STARTED and t > 1.5:
-            win.flip
-            Prime.status = FINISHED
+        if Prime.status == STARTED and t > Prime.onset + 0.5:
+            Prime.setAutoDraw(False)
+            print('prime finished')
+            print(movie.status)
+            print('t = ' + str(t))
             
         #check if we should play the movie; wait until 1s after prime has been shown
-        if Prime.status == FINISHED and movie.status == NOT_STARTED and t > (2.5 + Prime.onset):            
-            #Prime.setAutoDraw(False) 
-
-            movie.onset = trialClock.getTime()
-            movie.tStart = t  
-            movie.setAutoDraw(True)
-            win.flip()
+        if Prime.status == FINISHED and movie.status == NOT_STARTED and t > (1.5 + Prime.onset):            
+            print('show movie')
+            present_stim(movie, t)
+            print('Prime onset: ' + str(Prime.onset))
+            print('t = ' + str(t))
             
+        #after playing the video, we ask for the response
+        if movie.status == FINISHED and Response_text.status == NOT_STARTED:
+
+            present_stim(Response_text, t)
+            event.clearEvents(eventType='keyboard') #make sure no previous button presses remain
+            print('show response')
+            print(movie.status)
+            print('Prime onset: ' + str(Prime.onset))
+            print('t = ' + str(t))
+            
+        if Response_text.status == STARTED:
+            theseKeys = event.getKeys(keyList=['1','escape','2','3'])
+            if len(theseKeys) > 0:  # at least one key was pressed
+                key_resp.keys = theseKeys[-1]  # just the last key pressed
+                key_resp.rt = key_resp.clock.getTime()
+                key_resp.status = FINISHED
+                Response_text.setAutoDraw(False)
+                
+        #ISI
+        if Response_text.status == FINISHED and ISI.status == NOT_STARTED:
+            win.flip()
+            ISI.tStart = t
+            ISI.start(0.5)
+        elif ISI.status == STARTED and t >= ISI.tStart + 0.5:
+            ISI.status = FINISHED
+            print('finished')
             
         #check for ending
         continueRoutine = False 
         for thisComponent in TrialComponents:
             if thisComponent.status != FINISHED:
-                continueRoutine = True #if any of them haven't finished, continue routine
-        
-        #make sure we can always stop with the Escp button
-        if event.getKeys(keyList=["escape"]):
-            core.quit()
-            
-        
+                continueRoutine = True #if any of them haven't finished, continue routine                
+        print('after component check, movie.status = ' + str(movie.status))
         # refresh the screen  
         if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
             win.flip()
-    
         
