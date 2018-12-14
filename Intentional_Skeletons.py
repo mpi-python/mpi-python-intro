@@ -214,7 +214,11 @@ for Trial in range(1, numTrials):
                 key_resp.rt = key_resp.clock.getTime()
                 key_resp.status = FINISHED
                 Response_text.setAutoDraw(False)
-                
+            elif t >= Response_text.onset + 3:
+                Response_text.setAutoDraw(False)
+                key_resp.keys = 'NA'
+                key_resp.rt = 'NA'
+                key_resp.status = FINISHED
         #ISI
         if Response_text.status == FINISHED and ISI.status == NOT_STARTED:
             win.flip()
@@ -241,7 +245,9 @@ for Trial in range(1, numTrials):
     thisExp.addData('Onset movie', movie.onset)
     thisExp.addData('Onset Response text', Response_text.onset)
     thisExp.addData('Response', key_resp.keys)
-    thisExp.addData('Response RT', key_resp.rt-Response_text.onset)
+    if key_resp.rt != 'NA':
+        thisExp.addData('Response RT', key_resp.rt-Response_text.onset)
+    else: thisExp.addData('Response RT', 'NA')
     thisExp.addData('Movie: actor', A)
     thisExp.addData('Movie: item', B)
     thisExp.addData('CTX', stims[1])
