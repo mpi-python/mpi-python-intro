@@ -28,6 +28,8 @@ expInfo['expName'] = expName
 #Data file name stem = absolute path + name; later add .csv
 filename = _thisDir + os.sep + u'data/%s_%s_%s' % (expInfo['Participant'], expName, expInfo['date'])
 
+thisExp = data.ExperimentHandler(name = expName, version = '', extraInfo = expInfo, runtimeInfo = None, originPath = None, savePickle = True, saveWideText = True, dataFileName = filename)
+
 #Save log file
 logFile = logging.LogFile(filename + '.log', level = logging.EXP)
 logging.console.setLevel(logging.WARNING) #this outputs to the screen, not a file
@@ -47,7 +49,6 @@ sd.default.channels = 1 #record in mono
 #Create window and stimuli
 win = visual.Window([1280, 720], color = 'white', monitor = 'testMonitor', units = 'cm') #Open a window with a white background
 text = visual.TextStim(win, None, color='black', font = 'arial') #Prepare a text stimulus
-image = visual.ImageStim(win, None) 
 LeftIm = visual.ImageStim(win, None) #Create the left images
 LeftIm.setPos((-8,0)) #Define the position on the screen
 RightIm = visual.ImageStim(win, None) #Create the right images 
@@ -74,6 +75,8 @@ def presentInstr(win, myText):
 
 #Function for generating the trials
 def trial(win, pict, lang, sound):
+    t = 0
+    trialClock.reset()
     if lang == 'EN': 
         LeftIm.setImage(pict)
         LeftIm.draw()
@@ -83,13 +86,15 @@ def trial(win, pict, lang, sound):
         RightIm.draw() 
         
     win.flip()
+    t = trialClock.getTime()
     sample = sd.rec(4 * sd.default.samplerate) #record for four seconds
     sd.wait() #finish recording before moving on
     sf.write(sound, sample, sd.default.samplerate)
+    
+    if endExpNow or event.getKeys(keyList=['escape']):
+        core.quit()
+    
     return
-
-##GET PARTICIPANT INFO##
-#ppInfo()
 
 ###INSTRUCTIONS###
 presentInstr(win, 'Welcome to this experiment.\n\nPress any key to continue.')
@@ -101,13 +106,21 @@ presentInstr(win, 'Ready? \n\nPress a key to start!')
 
 ###EXPERIMENT###
 #This can probably be done in a better way
-trial(win, '1.png', 'EN', '1.wav')
-trial(win, '2.png', 'EN', '2.wav')
-trial(win, '3.png','EN', '3.wav')
-trial(win, '4.png', 'NL', '4.wav')
-trial(win, '5.png', 'NL', '5.wav')
-trial(win, '6.png','EN', '6.wav')
-trial(win, '7.png', 'NL', '7.wav')
+trial(win, u'stimuli/1.png', 'EN', u'recordings/1.wav') #Added directories to save it in a separate folder
+trial(win, u'stimuli/2.png', 'EN', u'recordings/2.wav')
+trial(win, u'stimuli/3.png','EN', u'recordings/3.wav')
+trial(win, u'stimuli/4.png', 'NL', u'recordings/4.wav')
+trial(win, u'stimuli/5.png', 'NL', u'recordings/5.wav')
+trial(win, u'stimuli/6.png','EN', u'recordings/6.wav')
+trial(win, u'stimuli/7.png', 'NL', u'recordings/7.wav')
+
+##Extracting RTs from sound files##
+#Assuming that recording started at the start of the trial, you can find RT at the time when the sound ampliture changes from near zero to above some threshold.
+recording = sf.read(sound)
+
+
+#Saving maybe
+thisExp.saveAsWideText(filename + '.csv')
 
 #Cleanup
 win.close()
