@@ -24,7 +24,6 @@ import sys # to get file system encoding
 def present_stim(module, t):
     module.onset = t
     module.setAutoDraw(True)
-    
     return module
 
 def Check_for_quit(event):
@@ -64,8 +63,14 @@ filename = 'data/%s_%s_%s' %(expInfo['participant'], expName, expInfo['date'])
 endExpNow = False  # flag for 'escape' or other condition => quit the exp
 
 #how many trials?
-numTrials = 4
+numTrials = 121
 
+#Experiment handler to help with data saving
+thisExp = data.ExperimentHandler(name=expName, version='',
+    extraInfo=expInfo, runtimeInfo=None,
+    originPath=None,
+    savePickle=True, saveWideText=True,
+    dataFileName=filename)
 
 #load in the stimulus video paths
 with open('stimuli/social_skeletons_stims.txt') as f:
@@ -151,12 +156,11 @@ for Trial in range(1, numTrials):
     #split the string so we have: A = actor num, B = action num, C = 'skeleton'
     A, B, C = strstims.split('_')
     
-    #set jitter between 3.5 and 4.5s
-    Jitter = random.uniform(3.5,4.5)
+    #set jitter between 0.1 1.0s - this will be the time between Prime and movie
+    Jitter = random.uniform(0.1,1.0)
     
     # Get the prime corresponding to the current video
     prime_current = Prime_text[int(B)]
-    
     
     Prime.text=(prime_current)
     
@@ -191,13 +195,12 @@ for Trial in range(1, numTrials):
 
             
         #after 1.5 seconds, stop showing the prime (give us a blank screen
-        if Prime.status == STARTED and t > Prime.onset + 0.5:
+        if Prime.status == STARTED and t > Prime.onset + Jitter:
             Prime.setAutoDraw(False)
             
         #check if we should play the movie; wait until 1s after prime has been shown
         if Prime.status == FINISHED and movie.status == NOT_STARTED and t > (1.5 + Prime.onset):            
             movie = present_stim(movie, t)
-
             
         #after playing the video, we ask for the response
         if movie.status == FINISHED and Response_text.status == NOT_STARTED:
@@ -231,4 +234,21 @@ for Trial in range(1, numTrials):
         if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
             win.flip()
     
-    #Data Logging:
+    #---------------Data Logging:
+    
+    thisExp.addData('Onset Prime', Prime.onset)
+    thisExp.addData('Jitter', Jitter)
+    thisExp.addData('Onset movie', movie.onset)
+    thisExp.addData('Onset Response text', Response_text.onset)
+    thisExp.addData('Response', key_resp.keys)
+    thisExp.addData('Response RT', key_resp.rt-Response_text.onset)
+    thisExp.addData('Movie: actor', A)
+    thisExp.addData('Movie: item', B)
+    thisExp.addData('CTX', stims[1])
+   
+  #----------------------- end of trial - move to next line in data output
+    thisExp.nextEntry()
+t = globalClock.getTime()   
+present_stim(End_text,t)
+win.flip()
+core.wait(2.0)
