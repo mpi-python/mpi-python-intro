@@ -36,6 +36,16 @@ def reset_components(TrialComponents):
         if hasattr(thisComponent, 'status'):
             thisComponent.status = NOT_STARTED
     print('reset done')
+    
+#load the video into a moviestim object
+def load_movie_stim(video_name):
+    movie = visual.MovieStim3(win=win, name='movie',
+        noAudio = True, size = (120,90),
+        filename= u'stimuli/%s.avi'%video_name,
+        ori=0, pos=[0, 0], opacity=1,
+        depth=-2.0,
+        )
+    return movie
 #=INITIALIZE============================
 #set up some initial variables
 
@@ -54,7 +64,7 @@ filename = 'data/%s_%s_%s' %(expInfo['participant'], expName, expInfo['date'])
 endExpNow = False  # flag for 'escape' or other condition => quit the exp
 
 #how many trials?
-numTrials = 3
+numTrials = 4
 
 
 #load in the stimulus video paths
@@ -106,14 +116,7 @@ Prime = visual.TextStim(win=win, ori=0, name='Prime',
     color='white', colorSpace='rgb',opacity=1,
     depth=-1.0)
     
-
-#our main stimulus
-movie = visual.MovieStim3(win=win, name='movie',
-    noAudio = True,
-    filename='stimuli/2_3_skeleton.avi',
-    ori=0, pos=[0, 0], opacity=1,
-    depth=-2.0,
-    )
+#load_movie_stim('stimuli/2_3_skeleton.avi')
 
 #Text stimulus
 Response_text = visual.TextStim(win=win, ori=0, name='Response_text',
@@ -157,8 +160,9 @@ for Trial in range(1, numTrials):
     
     Prime.text=(prime_current)
     
-    movie.filename=u'stimuli/%s.avi'%(stims[0]),
-
+    #movie.loadMovie=u'stimuli/%s.avi'%(stims[0]),
+    movie = load_movie_stim(stims[0])
+    
     trialClock.reset()  # reset the trial clock
     
     t = 0 #reset this every time
@@ -175,46 +179,30 @@ for Trial in range(1, numTrials):
     reset_components(TrialComponents)
 
     continueRoutine = True #used to jeep the trial going until its done
-    print('setup done')
 #----------start
     
     while continueRoutine == True:
         t = trialClock.getTime()
         
-        #print('begin')
-        #print(movie.status)
         #if the Prime hasn't been shown yet, draw and show it
         if t > 0 and Prime.status == NOT_STARTED:
             #Prime.draw()#we cant use this method because the window has to be flipped at the end of the routine for the video
-            present_stim(Prime,t)
-            print('showing prime')
-            print(movie.status)
-            print('Prime onset: ' + str(Prime.onset))
-            print('t = ' + str(t))
+            Prime = present_stim(Prime,t)
+
             
         #after 1.5 seconds, stop showing the prime (give us a blank screen
         if Prime.status == STARTED and t > Prime.onset + 0.5:
             Prime.setAutoDraw(False)
-            print('prime finished')
-            print(movie.status)
-            print('t = ' + str(t))
             
         #check if we should play the movie; wait until 1s after prime has been shown
         if Prime.status == FINISHED and movie.status == NOT_STARTED and t > (1.5 + Prime.onset):            
-            print('show movie')
-            present_stim(movie, t)
-            print('Prime onset: ' + str(Prime.onset))
-            print('t = ' + str(t))
+            movie = present_stim(movie, t)
+
             
         #after playing the video, we ask for the response
         if movie.status == FINISHED and Response_text.status == NOT_STARTED:
-
-            present_stim(Response_text, t)
+            Response_text = present_stim(Response_text, t)
             event.clearEvents(eventType='keyboard') #make sure no previous button presses remain
-            print('show response')
-            print(movie.status)
-            print('Prime onset: ' + str(Prime.onset))
-            print('t = ' + str(t))
             
         if Response_text.status == STARTED:
             theseKeys = event.getKeys(keyList=['1','escape','2','3'])
@@ -231,15 +219,16 @@ for Trial in range(1, numTrials):
             ISI.start(0.5)
         elif ISI.status == STARTED and t >= ISI.tStart + 0.5:
             ISI.status = FINISHED
-            print('finished')
             
+        Check_for_quit(event)    
+         
         #check for ending
         continueRoutine = False 
         for thisComponent in TrialComponents:
             if thisComponent.status != FINISHED:
                 continueRoutine = True #if any of them haven't finished, continue routine                
-        print('after component check, movie.status = ' + str(movie.status))
         # refresh the screen  
         if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
             win.flip()
-        
+    
+    #Data Logging:
