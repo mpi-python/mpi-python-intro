@@ -1,0 +1,76 @@
+4.4857 	DATA 	Keypress: space
+4.5692 	EXP 	Created window1 = Window(allowGUI=True, allowStencil=False, args=UNKNOWN, autoLog=True, bitsMode=UNKNOWN, blendMode='avg', color='white', colorSpace='named', fullscr=UNKNOWN, gamma=None, kwargs=UNKNOWN, lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x000001E4177889E8>, multiSample=False, name='window1', numSamples=2, pos=[320.0, 180.0], screen=0, size=array([1280,  720]), stereo=False, units='cm', useFBO=False, useRetina=False, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+4.6262 	EXP 	Created unnamed TextStim = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='black', colorSpace='named', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, font='arial', fontFiles=[], height=1.0, italic=False, name='unnamed TextStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=array([0., 0., 0.]), text='', units='cm', win=Window(...), wrapWidth=15.0)
+4.6435 	EXP 	Created unnamed ImageStim = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=None, interpolate=False, mask=None, maskParams=None, name='unnamed ImageStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.5, 0.5]), texRes=128, units='cm', win=Window(...))
+4.6450 	EXP 	Created unnamed ImageStim = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=None, interpolate=False, mask=None, maskParams=None, name='unnamed ImageStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.5, 0.5]), texRes=128, units='cm', win=Window(...))
+4.6467 	EXP 	Created unnamed ImageStim = ImageStim(__class__=<class 'psychopy.visual.image.ImageStim'>, autoLog=True, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0, flipHoriz=False, flipVert=False, image=None, interpolate=False, mask=None, maskParams=None, name='unnamed ImageStim', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.5, 0.5]), texRes=128, units='cm', win=Window(...))
+4.7245 	EXP 	unnamed ImageStim: pos = array([-8.,  0.])
+4.7245 	EXP 	unnamed ImageStim: pos = array([8., 0.])
+4.7245 	EXP 	unnamed TextStim: text = 'Welcome to this experiment.\n\nPress any key to continue.'
+4.7348 	EXP 	unnamed TextStim: text = 'Welcome to this experiment.\n\nPress any key to continue.'
+4.7518 	EXP 	unnamed TextStim: text = 'Welcome to this experiment.\n\nPress any key to continue.'
+4.7685 	EXP 	unnamed TextStim: text = 'Welcome to this experiment.\n\nPress any key to continue.'
+4.7853 	EXP 	unnamed TextStim: text = 'Welcome to this experiment.\n\nPress any key to continue.'
+4.8021 	EXP 	unnamed TextStim: text = 'Welcome to this experiment.\n\nPress any key to continue.'
+4.8183 	EXP 	unnamed TextStim: text = 'Welcome to this experiment.\n\nPress any key to continue.'
+4.8353 	EXP 	unnamed TextStim: text = 'Welcome to this experiment.\n\nPress any key to continue.'
+4.8515 	EXP 	unnamed TextStim: text = 'Welcome to this experiment.\n\nPress any key to continue.'
+4.8681 	EXP 	unnamed TextStim: text = 'Welcome to this experiment.\n\nPress any key to continue.'
+4.8853 	EXP 	unnamed TextStim: text = 'Welcome to this experiment.\n\nPress any key to continue.'
+4.9016 	EXP 	unnamed TextStim: text = 'Welcome to this experiment.\n\nPress any key to continue.'
+4.9186 	EXP 	unnamed TextStim: text = 'Welcome to this experiment.\n\nPress any key to continue.'
+4.9354 	EXP 	unnamed TextStim: text = 'Welcome to this experiment.\n\nPress any key to continue.'
+4.9520 	EXP 	unnamed TextStim: text = 'Welcome to this experiment.\n\nPress any key to continue.'
+4.9683 	EXP 	unnamed TextStim: text = 'Welcome to this experiment.\n\nPress any key to continue.'
+4.9687 	DATA 	Keypress: space
+5.0039 	EXP 	unnamed TextStim: text = 'You will get to see pictures. \n\nYour task is to name the pictures as quickly as possible.'
+5.0184 	EXP 	unnamed TextStim: text = 'You will get to see pictures. \n\nYour task is to name the pictures as quickly as possible.'
+5.0352 	EXP 	unnamed TextStim: text = 'You will get to see pictures. \n\nYour task is to name the pictures as quickly as possible.'
+5.0517 	EXP 	unnamed TextStim: text = 'You will get to see pictures. \n\nYour task is to name the pictures as quickly as possible.'
+5.0684 	EXP 	unnamed TextStim: text = 'You will get to see pictures. \n\nYour task is to name the pictures as quickly as possible.'
+5.0852 	EXP 	unnamed TextStim: text = 'You will get to see pictures. \n\nYour task is to name the pictures as quickly as possible.'
+5.1016 	EXP 	unnamed TextStim: text = 'You will get to see pictures. \n\nYour task is to name the pictures as quickly as possible.'
+5.1185 	EXP 	unnamed TextStim: text = 'You will get to see pictures. \n\nYour task is to name the pictures as quickly as possible.'
+5.1350 	EXP 	unnamed TextStim: text = 'You will get to see pictures. \n\nYour task is to name the pictures as quickly as possible.'
+5.1356 	DATA 	Keypress: space
+5.1546 	EXP 	unnamed TextStim: text = 'However, there is a catch.'
+5.1684 	EXP 	unnamed TextStim: text = 'However, there is a catch.'
+5.1850 	EXP 	unnamed TextStim: text = 'However, there is a catch.'
+5.2013 	EXP 	unnamed TextStim: text = 'However, there is a catch.'
+5.2180 	EXP 	unnamed TextStim: text = 'However, there is a catch.'
+5.2352 	EXP 	unnamed TextStim: text = 'However, there is a catch.'
+5.2512 	EXP 	unnamed TextStim: text = 'However, there is a catch.'
+5.2684 	EXP 	unnamed TextStim: text = 'However, there is a catch.'
+5.2848 	EXP 	unnamed TextStim: text = 'However, there is a catch.'
+5.3016 	EXP 	unnamed TextStim: text = 'However, there is a catch.'
+5.3020 	DATA 	Keypress: space
+5.3391 	EXP 	unnamed TextStim: text = 'If you see a picture on the LEFT side of the screen, name the picture in English.'
+5.3514 	EXP 	unnamed TextStim: text = 'If you see a picture on the LEFT side of the screen, name the picture in English.'
+5.3683 	EXP 	unnamed TextStim: text = 'If you see a picture on the LEFT side of the screen, name the picture in English.'
+5.3851 	EXP 	unnamed TextStim: text = 'If you see a picture on the LEFT side of the screen, name the picture in English.'
+5.4016 	EXP 	unnamed TextStim: text = 'If you see a picture on the LEFT side of the screen, name the picture in English.'
+5.4183 	EXP 	unnamed TextStim: text = 'If you see a picture on the LEFT side of the screen, name the picture in English.'
+5.4352 	EXP 	unnamed TextStim: text = 'If you see a picture on the LEFT side of the screen, name the picture in English.'
+5.4516 	EXP 	unnamed TextStim: text = 'If you see a picture on the LEFT side of the screen, name the picture in English.'
+5.4680 	EXP 	unnamed TextStim: text = 'If you see a picture on the LEFT side of the screen, name the picture in English.'
+5.4685 	DATA 	Keypress: space
+5.5492 	EXP 	unnamed TextStim: text = 'If you see a picture on the RIGHT side of the screen, name the picture in Dutch.'
+5.5679 	EXP 	unnamed TextStim: text = 'If you see a picture on the RIGHT side of the screen, name the picture in Dutch.'
+5.5849 	EXP 	unnamed TextStim: text = 'If you see a picture on the RIGHT side of the screen, name the picture in Dutch.'
+5.6012 	EXP 	unnamed TextStim: text = 'If you see a picture on the RIGHT side of the screen, name the picture in Dutch.'
+5.6179 	EXP 	unnamed TextStim: text = 'If you see a picture on the RIGHT side of the screen, name the picture in Dutch.'
+5.6193 	DATA 	Keypress: space
+5.6349 	EXP 	unnamed TextStim: text = 'If you see a picture on the RIGHT side of the screen, name the picture in Dutch.'
+5.6567 	EXP 	unnamed TextStim: text = 'Ready? \n\nPress a key to start!'
+5.6684 	EXP 	unnamed TextStim: text = 'Ready? \n\nPress a key to start!'
+5.6846 	EXP 	unnamed TextStim: text = 'Ready? \n\nPress a key to start!'
+5.7014 	EXP 	unnamed TextStim: text = 'Ready? \n\nPress a key to start!'
+5.7182 	EXP 	unnamed TextStim: text = 'Ready? \n\nPress a key to start!'
+5.7346 	EXP 	unnamed TextStim: text = 'Ready? \n\nPress a key to start!'
+5.7514 	EXP 	unnamed TextStim: text = 'Ready? \n\nPress a key to start!'
+5.7680 	EXP 	unnamed TextStim: text = 'Ready? \n\nPress a key to start!'
+5.7845 	EXP 	unnamed TextStim: text = 'Ready? \n\nPress a key to start!'
+5.7849 	DATA 	Keypress: space
+5.8013 	EXP 	unnamed ImageStim: size = array([8.7890625, 8.7890625])
+5.8013 	EXP 	unnamed ImageStim: image = '1.png'
+10.2391 	EXP 	window1: mouseVisible = True

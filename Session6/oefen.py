@@ -36,9 +36,9 @@ logging.console.setLevel(logging.WARNING) #this outputs to the screen, not a fil
 endExpNow = False 
 
 #Start code - component code to be run before the window creation
-wavDirName = filename + '.wav' #save the .wav file
-if not os.path.isdir(wavDirName):
-    os.makedirs(wavDirName) 
+#wavDirName = filename + '.wav' #save the .wav file
+#if not os.path.isdir(wavDirName):
+ #   os.makedirs(wavDirName) 
 
 #Setting up the microphone
 sd.default.samplerate = 48000 #record at 48000 samples per second
@@ -73,7 +73,7 @@ def presentInstr(win, myText):
     return
 
 #Function for generating the trials
-def trial(win, pict, lang):
+def trial(win, pict, lang, sound):
     if lang == 'EN': 
         LeftIm.setImage(pict)
         LeftIm.draw()
@@ -83,8 +83,9 @@ def trial(win, pict, lang):
         RightIm.draw() 
         
     win.flip()
-    sd.rec(4 * sd.default.samplerate) #record for four seconds
+    sample = sd.rec(4 * sd.default.samplerate) #record for four seconds
     sd.wait() #finish recording before moving on
+    sf.write(sound, sample, sd.default.samplerate)
     return
 
 ##GET PARTICIPANT INFO##
@@ -100,13 +101,13 @@ presentInstr(win, 'Ready? \n\nPress a key to start!')
 
 ###EXPERIMENT###
 #This can probably be done in a better way
-trial(win, '1.png', 'EN')
-trial(win, '2.png', 'EN')
-trial(win, '3.png','EN')
-trial(win, '4.png', 'NL')
-trial(win, '5.png', 'NL')
-trial(win, '6.png','EN')
-trial(win, '7.png', 'NL')
+trial(win, '1.png', 'EN', '1.wav')
+trial(win, '2.png', 'EN', '2.wav')
+trial(win, '3.png','EN', '3.wav')
+trial(win, '4.png', 'NL', '4.wav')
+trial(win, '5.png', 'NL', '5.wav')
+trial(win, '6.png','EN', '6.wav')
+trial(win, '7.png', 'NL', '7.wav')
 
 #Cleanup
 win.close()
