@@ -1,16 +1,40 @@
 #This is the code for the switch experiment 
 
 #First import the necessary libraries 
-from psychopy import core, visual, event, gui, data, voicekey
+from psychopy import core, visual, event, gui, data, clock, microphone, logging
 from psychopy.tools.filetools import fromFile, toFile
-from PIL import Image
-import sounddevice as sd
+from psychopy.constants import (NOT_STARTED, STARTED, PLAYING, PAUSED, STOPPED, FINISHED, PRESSED, RELEASED, FOREVER)
 import numpy, random #for handling various numerical/mathematical functions
-import os
+import os 
+import sys #to get file system encoding
+import sounddevice as sd
 
-#Set the directory to the current directory
-directory = os.getcwd()
+#Ensure that relative paths start from same directory as script
+_thisDir = os.getcwd()
 
+#Information on the experiment session
+expName = 'Switch_experiment'
+expInfo = {'Participant': '', 'Gender':'', 'Age': ''}
+dlg = gui.DlgFromDict(dictionary = expInfo, title = expName)
+if dlg.OK == False:
+    core.quit() #Participant pressed cancel
+expInfo['date'] = data.getDateStr() #add a simple timestamp
+expInfo['expName'] = expName
+
+#Data file name stem = absolute path + name; later add .csv
+filename = directory + os.sep + u'data/%s_%s_%s' % (expInfo['Participant'], expName, expInfo['date'])
+
+#Save log file
+logFile = logging.LogFile(filename + '.log', level = logging.EXP)
+logging.console.setLevel(logging.WARNING) #this outputs to the screen, not a file
+
+#You can implement and 'escape' to quit the experiment
+endExpNow = False 
+
+#Start code - component code to be run before the window creation
+wavDirName = filename + '.wav' #save the .wav file
+if not os.path.isdir(wavDirName):
+    os.makedirs(wavDirName) 
 
 #Create window and stimuli
 win = visual.Window([1280, 720], color = 'white', monitor = 'testMonitor', units = 'cm') #Open a window with a white background
@@ -18,7 +42,7 @@ text = visual.TextStim(win, None, color='black', font = 'arial') #Prepare a text
 image = visual.ImageStim(win, None) 
 LeftIm = visual.ImageStim(win, None) #Create the left images
 LeftIm.setPos((-8,0)) #Define the position on the screen
-RightIm = visual.ImageStim(win, None) #Create the right images
+RightIm = visual.ImageStim(win, None) #Create the right images 
 RightIm.setPos((8,0)) #Define the position on the screen
 
 #Clocks to keep track of time
@@ -54,17 +78,8 @@ def trial(win, pict, lang):
     core.wait(2) #core.wait is until I figure the voicekey out
     return
 
-#Presenting stimuli, using a window, a picture, and defining the language
-def presentStim(win, pict, lang):
-    trialpic = trial(win, pict, lang) #trial-generating-function
-    vk = voicekey.OnsetVoiceKey(sec=2.0, file_out='try.wav', more_processing = False, autosave = True) #The built-in voice-key
-    timer = core.getTime()
-    starttime = time.time()
-    vk_RT = vk.event_onset
-    vk.stop()
-    vkstopped = time.time()
-    return
-
+##GET PARTICIPANT INFO##
+#ppInfo()
 
 ###INSTRUCTIONS###
 presentInstr(win, 'Welcome to this experiment.\n\nPress any key to continue.')
@@ -75,20 +90,8 @@ presentInstr(win, 'If you see a picture on the RIGHT side of the screen, name th
 presentInstr(win, 'Ready? \n\nPress a key to start!')
 
 ###EXPERIMENT###
-#I should be able to randomize this:
-'''
-images = []
-for file in os.listdir(directory):
-    if file.endswith('.png'):
-        images.append(file)
-
-              
-#randomize list
-random.shuffle(images)
-
-for i in range(0, (len(images)):
-'''
-presentStim(win, '1.png', 'EN')
+#This can probably be done in a better way
+trial(win, '1.png', 'EN')
 trial(win, '2.png', 'EN')
 trial(win, '3.png','EN')
 trial(win, '4.png', 'NL')
