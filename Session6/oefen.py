@@ -1,13 +1,17 @@
 #This is the code for the switch experiment 
 
 #First import the necessary libraries 
-from psychopy import core, visual, event, gui, data, clock, microphone, logging
+#Import sounddevice as given in the HINTS file
+import sounddevice as sd
+import soundfile as sf
+from psychopy import prefs
+prefs.general['audioLib'] = ['pygame']
+from psychopy import core, visual, event, gui, data, clock, logging
 from psychopy.tools.filetools import fromFile, toFile
 from psychopy.constants import (NOT_STARTED, STARTED, PLAYING, PAUSED, STOPPED, FINISHED, PRESSED, RELEASED, FOREVER)
 import numpy, random #for handling various numerical/mathematical functions
 import os 
 import sys #to get file system encoding
-import sounddevice as sd
 
 #Ensure that relative paths start from same directory as script
 _thisDir = os.getcwd()
@@ -22,7 +26,7 @@ expInfo['date'] = data.getDateStr() #add a simple timestamp
 expInfo['expName'] = expName
 
 #Data file name stem = absolute path + name; later add .csv
-filename = directory + os.sep + u'data/%s_%s_%s' % (expInfo['Participant'], expName, expInfo['date'])
+filename = _thisDir + os.sep + u'data/%s_%s_%s' % (expInfo['Participant'], expName, expInfo['date'])
 
 #Save log file
 logFile = logging.LogFile(filename + '.log', level = logging.EXP)
@@ -35,6 +39,10 @@ endExpNow = False
 wavDirName = filename + '.wav' #save the .wav file
 if not os.path.isdir(wavDirName):
     os.makedirs(wavDirName) 
+
+#Setting up the microphone
+sd.default.samplerate = 48000 #record at 48000 samples per second
+sd.default.channels = 1 #record in mono
 
 #Create window and stimuli
 win = visual.Window([1280, 720], color = 'white', monitor = 'testMonitor', units = 'cm') #Open a window with a white background
@@ -75,7 +83,8 @@ def trial(win, pict, lang):
         RightIm.draw() 
         
     win.flip()
-    core.wait(2) #core.wait is until I figure the voicekey out
+    sd.rec(4 * sd.default.samplerate) #record for four seconds
+    sd.wait() #finish recording before moving on
     return
 
 ##GET PARTICIPANT INFO##
