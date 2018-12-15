@@ -6,13 +6,14 @@ import csv
 
 def questions(ppn,win,text):
     #make a list of the number of questions you want to present
-    questList = [questnum for questnum in range(4)]
+    questList = [questnum for questnum in range(5)]
 
     #define what the questions are
-    questions = ["was het leuk?",
-                 "was het vet?",
-                 "was het cool?",
-                 "was het awesome?"]
+    questions = ["When I finished the story I was surprised to see that time had gone by so fast",
+                 "When I was reading the story I was focused on what happened in the story",
+                 "I felt absorbed in the story",
+                 "The story gripped me in such a way that I could close myself off for things that were happening around me",
+                 "I was reading in such a concentrated matter that I had forgotten the world around me"]
     '''
     # open a window of 800 by 600 pixels
     win = visual.Window((800, 600), color='white')
@@ -40,7 +41,7 @@ def questions(ppn,win,text):
     win.flip()
     
     #display introduction to questionnaire until space bar press
-    text.setText('Hier komen de vragen. Druk op een toets van 1 tot 7 om antwoord te geven. Druk om de spatiebalk om te beginnen.')
+    text.setText('This is the start of the questionnaire. Indicate whether you agree with these statements. Press a key from 1 to 7 to answer, 1 = totally disagree, 7 = totally agree. Press the space bar to start the questionnaire.')
     text.draw()
     win.flip()
     event.waitKeys(clearEvents = True, keyList=['space'])
@@ -63,7 +64,7 @@ def questions(ppn,win,text):
             writer = csv.writer(questfile, delimiter='\t')
             writer.writerow([quest+1,f'{answer}'])
 
-    text.setText("Bedankt voor het invullen van de vragenlijst. Het experiment is nu klaar.")
+    text.setText("Thank you for answering the questions. This is the end of the experiment. Thank you for your participation!")
     text.draw()
     win.flip()
     core.wait(2)

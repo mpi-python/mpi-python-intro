@@ -18,7 +18,7 @@ win = visual.Window((800, 600), color=[1,1,1],colorSpace = 'rgb')
 core.wait(1)  # wait for 1 second on a blank window
 
 # prepare a text stimulus in the earlier defined color, ask for participant number, end with "enter"
-text = visual.TextStim(win, text='Wat is het proefpersoonnummer', color=[-1,-1,-1], colorSpace = 'rgb')
+text = visual.TextStim(win, text='What is the participant number?', color=[-1,-1,-1], colorSpace = 'rgb', height = 0.065)
 text.draw()  # draw the stimulus to the back buffer
 win.flip()  # flip the back buffer with our stimulus to the front
 event.waitKeys(clearEvents = True, keyList=['return'])
