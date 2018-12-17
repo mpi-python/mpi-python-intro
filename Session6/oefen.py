@@ -14,7 +14,7 @@ import os
 import sys #to get file system encoding
 
 #Ensure that relative paths start from same directory as script
-_thisDir = os.getcwd()
+_thisDir = 'C:/Users/saski/mpi-python-intro/Session6/'
 
 #Information on the experiment session
 expName = 'Switch_experiment'
@@ -28,11 +28,11 @@ expInfo['expName'] = expName
 #Data file name stem = absolute path + name; later add .csv
 filename = _thisDir + os.sep + u'data/%s_%s_%s' % (expInfo['Participant'], expName, expInfo['date'])
 
-thisExp = data.ExperimentHandler(name = expName, version = '', extraInfo = expInfo, runtimeInfo = None, originPath = None, savePickle = True, saveWideText = True, dataFileName = filename)
+# thisExp = data.ExperimentHandler(name = expName, version = '', extraInfo = expInfo, runtimeInfo = None, originPath = None, savePickle = True, saveWideText = True, dataFileName = filename)
 
-#Save log file
-logFile = logging.LogFile(filename + '.log', level = logging.EXP)
-logging.console.setLevel(logging.WARNING) #this outputs to the screen, not a file
+# #Save log file
+# logFile = logging.LogFile(filename + '.log', level = logging.EXP)
+# logging.console.setLevel(logging.WARNING) #this outputs to the screen, not a file
 
 #You can implement and 'escape' to quit the experiment
 endExpNow = False 
@@ -47,7 +47,7 @@ sd.default.samplerate = 48000 #record at 48000 samples per second
 sd.default.channels = 1 #record in mono
 
 #Create window and stimuli
-win = visual.Window([1280, 720], color = 'white', monitor = 'testMonitor', units = 'cm') #Open a window with a white background
+win = visual.Window([1920, 1080], color = 'white', monitor = 'testMonitor', units = 'cm') #Open a window with a white background
 text = visual.TextStim(win, None, color='black', font = 'arial') #Prepare a text stimulus
 LeftIm = visual.ImageStim(win, None) #Create the left images
 LeftIm.setPos((-8,0)) #Define the position on the screen
@@ -106,22 +106,17 @@ presentInstr(win, 'Ready? \n\nPress a key to start!')
 
 ###EXPERIMENT###
 #This can probably be done in a better way
-trial(win, u'stimuli/1.png', 'EN', u'recordings/1.wav') #Added directories to save it in a separate folder
-trial(win, u'stimuli/2.png', 'EN', u'recordings/2.wav')
-trial(win, u'stimuli/3.png','EN', u'recordings/3.wav')
-trial(win, u'stimuli/4.png', 'NL', u'recordings/4.wav')
-trial(win, u'stimuli/5.png', 'NL', u'recordings/5.wav')
-trial(win, u'stimuli/6.png','EN', u'recordings/6.wav')
-trial(win, u'stimuli/7.png', 'NL', u'recordings/7.wav')
-
-##Extracting RTs from sound files##
-#Assuming that recording started at the start of the trial, you can find RT at the time when the sound ampliture changes from near zero to above some threshold.
-
-recording = sf.read(sound)
+trial(win, u'stimuli/1.png', 'EN', u'recordings/%s_1.wav' % (expInfo['Participant'])) #Added directories to save it in a separate folder
+trial(win, u'stimuli/2.png', 'EN', u'recordings/%s_2.wav' % (expInfo['Participant']))
+trial(win, u'stimuli/3.png','EN', u'recordings/%s_3.wav' % (expInfo['Participant']))
+trial(win, u'stimuli/4.png', 'NL', u'recordings/%s_4.wav' % (expInfo['Participant']))
+trial(win, u'stimuli/5.png', 'NL', u'recordings/%s_5.wav' % (expInfo['Participant']))
+trial(win, u'stimuli/6.png','EN', u'recordings/%s_6.wav' % (expInfo['Participant']))
+trial(win, u'stimuli/7.png', 'NL', u'recordings/%s_7.wav' % (expInfo['Participant']))
 
 
 #Saving maybe
-thisExp.saveAsWideText(filename + '.csv')
+# thisExp.saveAsWideText(filename + '.csv')
 
 #Cleanup
 win.close()
