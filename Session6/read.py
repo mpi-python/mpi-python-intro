@@ -10,52 +10,31 @@ from psychopy.constants import (NOT_STARTED, STARTED, PLAYING, PAUSED, STOPPED, 
 import numpy as np
 import os 
 import sys
-import fnmatch
 import seaborn as sns
 
-path = './recordings'
+path = './recordings' #Define the right directory
 os.chdir(path)
 
-rec = []
-listRec = os.listdir('.')
+rec = [] #Create an empty list for recordings
+listRec = os.listdir('.') 
 
-pattern = '*.wav'
+#Create a list of all the .wav files in the directory
 for file in listRec:
-    #if file.endswith(".wav"):
-    #    rec.append(file)
-    if fnmatch.fnmatch(file, pattern):
-        rec.append(file)
+    if file.endswith(".wav"):
+         rec.append(file)
 
-print(rec)
+for files in listRec:
+    recordings, samplerate = sf.read(files) #Read all .wav files 
+    energy = np.square(recordings) #create a variable "energy" of the squared recordings-array
+    Emax = np.max(energy)
+    energyNorm = (energy/Emax) #Normalize these values
+    index = [index for index, value in enumerate(energyNorm) if value > 0.2] #Ok so this is quite unprecise and there are multiple solutions to this problem (e.g., comparing multiple indices, getting rid of noise beforehand) , but for this exercise I will keep it like this. 
+    RT = index[0]/samplerate #This is the reaction time
+    print(RT) #Sanity check
+    
 
-#for file 
-'''
-for i in 
-recordings, samplerate = sf.read('1.wav')
 
-#recordings = sf.read('1.wav')
-#sns.lineplot(data = recordings)
-
-energy = np.square(recordings)
-Emin = 0
-Emax = np.max(energy)
-energyNorm = (energy/Emax)
-# print(energyNorm)
-# print(energy)
-
-index = [index for index, value in enumerate(energyNorm) if value > 0.14]
-#print(index[0]) ##where energy is larger than 0.0001
-
-RT = index[0]/samplerate
-print(RT)
-
-# print(recordings)
-# print(energy)
-
-# index = np.argmin(energy == 0.001)
-# print(index)
  
-#Maybe: get rid of noise before calculating the threshold! 
-'''
+
 
     

@@ -116,6 +116,7 @@ trial(win, u'stimuli/7.png', 'NL', u'recordings/7.wav')
 
 ##Extracting RTs from sound files##
 #Assuming that recording started at the start of the trial, you can find RT at the time when the sound ampliture changes from near zero to above some threshold.
+
 recording = sf.read(sound)
 
 
