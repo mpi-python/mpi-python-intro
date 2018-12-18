@@ -11,35 +11,27 @@ import numpy as np
 import os 
 import sys
 import seaborn as sns
+import csv
 
 path = './recordings' #Define the right directory
 os.chdir(path)
 
 rec = [] #Create an empty list for recordings
+
 listRec = os.listdir('.') 
 
 #Create a list of all the .wav files in the directory
 for file in listRec:
-    if file.endswith(".wav"):
+    if file.endswith('.wav'):
          rec.append(file)
 
-for files in listRec:
+RTs = []
+for files in rec:
     recordings, samplerate = sf.read(files) #Read all .wav files 
     energy = np.square(recordings) #create a variable "energy" of the squared recordings-array
     Emax = np.max(energy)
     energyNorm = (energy/Emax) #Normalize these values
-    index = [index for index, value in enumerate(energyNorm) if value > 0.2] #Ok so this is quite unprecise and there are multiple solutions to this problem (e.g., comparing multiple indices, getting rid of noise beforehand) , but for this exercise I will keep it like this. 
+    index = [index for index, value in enumerate(energyNorm) if value > 0.2] #Ok so this is quite unprecise and while there are multiple solutions to this problem (e.g., comparing multiple indices, getting rid of noise beforehand) , for this exercise I will keep it like this. 
     RT = index[0]/samplerate #This is the reaction time
-    print(RT) #Sanity check
-    
-
-csvData = [['Participant', 'Age', 'Gender', 'RT'], ['Peter', '22'], ['Jasmine', '21'], ['Sam', '24']]
-
-with open('person.csv', 'w') as csvFile:
-    writer = csv.writer(csvFile)
-    writer.writerows(csvData)
-
-csvFile.close()
-
-
-    
+    RTs.append(RT)
+    #print(RT) #Sanity check
